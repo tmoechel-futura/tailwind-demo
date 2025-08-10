@@ -1,23 +1,36 @@
-import ProfileCard from './components/ProfileCard';
-import AlexaImage from './images/alexa.png';
-import CortanaImage from './images/cortana.png';
-import SiriImage from './images/siri.png';
-function App() {
-  return (
-    // mx is x marging
-    <main className="mx-auto max-w-6xl p-6">
-      <div className="mb-6 rounded-lg bg-green-800 p-6">
-        <h1 className="text-2xl font-bold tracking-tight text-white">
-          Personal Digital Assistants
-        </h1>
-      </div>
+import { useState } from "react";
+import AnimalShow from "./components/AnimalShow"
 
-      <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <ProfileCard title="Alexa" handle="@alexa99" img={AlexaImage} description="Built by Google, who knows what it does"/>
-        <ProfileCard title="Cortana" handle="@cortana33" img={CortanaImage} description="Built by Microsoft, who knows what it does"/>
-        <ProfileCard title="Siri" handle="@siri21" img={SiriImage} description="Built by Apple, who knows what it does"/>
-      </section>
-    </main>
+function getRandomAnimal() {
+    const animals = ['cat', 'dog', 'bird', 'cow', 'gator', 'horse'];
+    return animals[Math.floor(Math.random() * animals.length)];
+  }
+
+function App() {
+  // uses array destructuring to create a state variable `count` and a function `setCount` to update it
+  const [animals, setAnimals] = useState<string[]>([]);
+  
+  const handleAddAnimalClick = () => {
+    // use functional update to ensure the latest state is used
+    setAnimals(animals => [...animals, getRandomAnimal()]);
+  }
+
+  const renderedAnimals = () => {
+    return animals.map((animal, index) => (
+      <AnimalShow key={index} type={animal} />
+    ));
+  }
+  
+  return (
+    <>
+      <div>
+        <h1 className="text-4xl font-bold text-center my-8">Welcome to the Animal Show</h1>
+        <button className="bg-blue-500 ml-4 text-white px-4 py-2 rounded" onClick={handleAddAnimalClick}>Add Animal</button>
+      </div>
+      <div className="flex flex-wrap justify-center">
+        {renderedAnimals()}
+      </div>
+    </>
   )
 }
 
