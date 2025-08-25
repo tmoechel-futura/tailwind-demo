@@ -1,11 +1,21 @@
-import searchPhotos from "../api/unsplash-api";
+import type { UnsplashPhoto } from "../api/unsplash.types";
+import ImageShow from "./ImageShow";
 
-function ImageList() {
-    searchPhotos( {query: "cats", page: 1, per_page: 10 }).then(data => {
-        console.log(data);
-        return <div>Image List Component</div>
-    });
-    return <div>Image List Component</div>
+interface ImageListProps {
+    images: UnsplashPhoto[];
+}
+
+function ImageList({ images }: ImageListProps) {
+    
+    const showImages = images.map((image: UnsplashPhoto) => {
+            return <ImageShow key={image.id} id={image.id} urls={image.urls} alt={image.alt_description} />
+        })
+
+    return (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+            {showImages}
+        </div>
+    )
 }
 
 export default ImageList;
