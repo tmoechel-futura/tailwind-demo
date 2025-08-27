@@ -1,16 +1,10 @@
-import React from "react";
-
 interface BookShowProps {
-    
+  // Define your props here, for example:
+  // title: string;
 }
- 
- 
-class BpplShow extends React.Component<BookShowProps> {
-    render() { 
-        return ( 
-            <div>BookShow</div>
-         );
-    }
+
+export default function BookShow(props: BookShowProps) {
+  return (
+    <div>BookShow</div>
+  )
 }
- 
-export default BpplShow;

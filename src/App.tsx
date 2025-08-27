@@ -1,10 +1,17 @@
-import TestTailwind from "./TestTailwind"
+import { useState } from "react";
+
+interface BookProps {
+  id: string;
+  title: string;
+}
 
 function App() {
+  const [books, setBooksState] = useState<BookProps[]>([])
+  
   return (
     // mx is x marging
-    <main className="mx-auto max-w-6xl p-6">
-      <TestTailwind />
+    <main>
+
     </main>
   )
 }

@@ -1,18 +1,10 @@
-import React from "react";
-
 interface BookListProps {
-    
+  // Define your props here, for example:
+  // books: Array<Book>;
 }
- 
-interface BookListState {
-    
+
+export default function BookList( props: BookListProps) {
+  return (
+    <div>BookList</div>
+  )
 }
- 
-class BookList extends React.Component<BookListProps, BookListState> {
-    state = { :  }
-    render() { 
-        return (  );
-    }
-}
- 
-export default BookList;

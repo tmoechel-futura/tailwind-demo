@@ -1,13 +1,10 @@
-import type { FunctionComponent } from "react";
-
 interface BookCreateProps {
-    
+  // Define your expected props here, for example:
+  // title?: string;
 }
- 
-const BookCreate: FunctionComponent<BookCreateProps> = () => {
-    return ( 
-        <div>BookCreate</div>
-     );
+
+export default function BookCreate( props: BookCreateProps) {
+  return (
+    <div>BookCreate</div>
+  )
 }
- 
-export default BookCreate;
