@@ -26,7 +26,7 @@ export default function BookCreate({ onBookCreate }: BookCreateProps) {
                 name="query"
                 value={bookTitle} // controlled component 
                 onChange={bookTitleChange}
-                placeholder="Search…"
+                placeholder="Add Book Title…"
                 className="border p-2 rounded w-full"
             />
             <button type="submit" className="px-4 py-2 rounded bg-blue-600 text-white">
