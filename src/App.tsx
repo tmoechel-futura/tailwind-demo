@@ -1,33 +1,49 @@
-import { useState } from "react";
-import BookCreate from "./components/BookCreate";
+import { useEffect, useState } from "react";
+
 import type { Book } from "./types/book.types";
+import { createBook, getBooks } from "./api/BookApi";
+
+import BookCreate from "./components/BookCreate";
 import BookList from "./components/BookList";
 
-function App() {
-  const [books, setBooksState] = useState<Book[]>([])
+export default function App() {
+  //hooks
+  const [books, setBooks] = useState<Book[]>([])
 
-  const handleBookCreate = (title: string) => {
-    const newBook = {
-      id: crypto.randomUUID(),
-      title
+  useEffect(() => {
+    fetchBooks();
+  }, []);
+
+  //handlers
+  const fetchBooks = async () => {
+    try {
+      const books = await getBooks();
+      setBooks(books);
+    } catch (error) {
+      console.error("Error fetching books:", error);
     }
-    console.log(newBook);
-    //immutable state update with the spread operator
-    setBooksState([...books, newBook])
+  };
+  const handleBookCreate = async (title: string) => {
+    try {
+      const bookCreated = await createBook(title);
+      setBooks([...books, bookCreated]);
+    } catch (error) {
+      console.error("Error creating book:", error);
+    }
   }
 
   const handleBookDelete = (id: string) => {
-    //books.filter creates a new array
     const updatedBooks = books.filter((book) => book.id !== id)
-    setBooksState(updatedBooks)
+    setBooks(updatedBooks)
   }
 
   const handleBookChange = (id: string, title: string) => {
     console.log(`change book with id ${id} and title ${title}}`);
     const updatedBooks = books.map((book) => book.id === id ? { ...book, title } : book)
-    setBooksState(updatedBooks)
+    setBooks(updatedBooks)
   }
 
+  //render
   return (
     <main>
       <BookList books={books} onBookDelete={handleBookDelete} onBookChange={handleBookChange} />
@@ -35,5 +51,3 @@ function App() {
     </main>
   )
 }
-
-export default App
