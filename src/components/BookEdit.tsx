@@ -15,7 +15,7 @@ export default function BookEdit({ book, onSubmit }: BookEditProps) {
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    console.log(`New title: ${bookTitle}`); // TODO: call onBookUpdate prop
+    console.log(`New title: ${bookTitle}`);
     onSubmit();
     handleBookChange(book.id, bookTitle);
   }
