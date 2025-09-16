@@ -1,29 +1,29 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { X, Pencil } from "lucide-react";
+
 import type { Book } from "../types/book.types";
 import BookEdit from "./BookEdit";
 
-import { X, Pencil } from "lucide-react";
+import { BooksContext } from "../context/BooksContext";
 
 interface BookShowProps {
   book: Book;
-  onBookDelete: (id: string) => void;
-  onBookChange: (id: string, title: string) => void;
 }
 
-export default function BookShow({ book, onBookDelete, onBookChange }: BookShowProps) {
+export default function BookShow({ book }: BookShowProps) {
 
   const [showEdit, setShowEdit] = useState(false);
+  const { handleBookDelete } = useContext(BooksContext);
 
-  const handleBookDelete = () => {
-    onBookDelete(book.id);
+  const bookDelete = () => {
+    handleBookDelete(book.id);
   }
 
-  const handleBookEdit = () => {
+  const onBookEdit = () => {
     setShowEdit(!showEdit);
   }
 
-  const handleBookChange = (id: string, title: string) => {
-    onBookChange(id, title);
+  const onSubmit = () => {
     setShowEdit(false);
   }
 
@@ -37,20 +37,20 @@ export default function BookShow({ book, onBookDelete, onBookChange }: BookShowP
       />
     </div>
   if (showEdit) {
-    content = <BookEdit book={book} onBookChange={handleBookChange} />
+    content = <BookEdit onSubmit={onSubmit} book={book} />
   }
 
   return (
     <div className="bg-gray-200 rounded-lg shadow p-4 flex flex-col text-white relative">
       <button
-        onClick={handleBookEdit}
+        onClick={onBookEdit}
         className="absolute top-2 right-9 bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-blue-600"
         aria-label="Edit book"
       >
         <Pencil className="w-4 h-4" />
       </button>
       <button
-        onClick={handleBookDelete}
+        onClick={bookDelete}
         className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center 
         justify-center hover:bg-red-600 text-lg leading-none text-center"
         aria-label="Delete book"

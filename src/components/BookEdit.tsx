@@ -1,19 +1,23 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import type { Book } from "../types/book.types";
+import { BooksContext } from "../context/BooksContext";
 
 interface BookEditProps {
   book: Book
-  onBookChange: (id: string, title: string) => void;
+  onSubmit: () => void;
 }
 
-export default function BookEdit({ book, onBookChange }: BookEditProps) {
+export default function BookEdit({ book, onSubmit }: BookEditProps) {
 
   const [bookTitle, setBookTitle] = useState<string>(book.title);
+  const { handleBookChange } = useContext(BooksContext);
+
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     console.log(`New title: ${bookTitle}`); // TODO: call onBookUpdate prop
-    onBookChange(book.id, bookTitle);
+    onSubmit();
+    handleBookChange(book.id, bookTitle);
   }
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {

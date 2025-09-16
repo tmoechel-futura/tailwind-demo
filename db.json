@@ -1,23 +1,11 @@
 {
   "books": [
     {
-      "title": "Cats",
-      "id": 1
-    },
-    {
-      "title": "Bikes",
-      "id": 2
-    },
-    {
-      "title": "Wiesbaden Neu",
-      "id": 3
-    },
-    {
       "title": "Glasgow",
       "id": 4
     },
     {
-      "title": "test",
+      "title": "Bikes",
       "id": 5
     }
   ]

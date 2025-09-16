@@ -1,15 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { BooksContext } from "../context/BooksContext";
 
-interface BookCreateProps {
-    onBookCreate: (title: string) => void;
-}
-
-export default function BookCreate({ onBookCreate }: BookCreateProps) {
+export default function BookCreate() {
     const [bookTitle, setBookTitle] = useState<string>("");
+    const { handleBookCreate } = useContext(BooksContext);
 
     const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        onBookCreate(bookTitle);
+        handleBookCreate(bookTitle);
         setBookTitle(""); // clear input field will not work with uncontrolled component
     }
 
