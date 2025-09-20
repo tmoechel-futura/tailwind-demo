@@ -1,36 +1,26 @@
-import { createContext, useState } from "react";
+import { useCallback, useState } from "react";
 import type { Book } from "../types/book.types";
 import { createBook, deleteBook, getBooks, updateBook } from "../api/BookApi";
-
-interface BooksContextType {
-    books: Book[];
-    fetchBooks: () => Promise<void>;
-    handleBookCreate: (title: string) => Promise<void>;
-    handleBookDelete: (id: number) => Promise<void>;
-    handleBookChange: (id: number, title: string) => Promise<void>;
-}
+import { BooksContext } from "./BooksContext";
 
 interface BooksProviderProps {
     children: React.ReactNode;
 }
-
-export const BooksContext = createContext<BooksContextType>(
-    {} as BooksContextType
-)
 
 export default function BooksProvider({ children }: BooksProviderProps) {
     //hooks
     const [books, setBooks] = useState<Book[]>([])
 
     //handlers
-    const fetchBooks = async () => {
+    const fetchBooks = useCallback(async () => {
         try {
             const books = await getBooks();
             setBooks(books);
         } catch (error) {
             console.error("Error fetching books:", error);
         }
-    };
+    }, []);
+
 
     const handleBookCreate = async (title: string) => {
         try {
