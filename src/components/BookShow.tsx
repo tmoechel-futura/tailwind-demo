@@ -1,10 +1,9 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { X, Pencil } from "lucide-react";
 
 import type { Book } from "../types/book.types";
 import BookEdit from "./BookEdit";
-
-import { BooksContext } from "../context/BooksContext";
+import { useBooksContext } from "../hooks/useBooksContext";
 
 interface BookShowProps {
   book: Book;
@@ -13,7 +12,7 @@ interface BookShowProps {
 export default function BookShow({ book }: BookShowProps) {
 
   const [showEdit, setShowEdit] = useState(false);
-  const { handleBookDelete } = useContext(BooksContext);
+  const { handleBookDelete } = useBooksContext();
 
   const bookDelete = () => {
     handleBookDelete(book.id);
