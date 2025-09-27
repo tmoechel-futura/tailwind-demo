@@ -1,5 +1,7 @@
 
 import React from "react";
+import clsx from "clsx";
+
 
 // do not use propTypes in TSX use interfaces instead!
 type ButtonType = "primary" | "secondary" | "success" | "warning" | "danger";
@@ -33,12 +35,14 @@ export default function Button({
         danger: "border border-red-500 text-red-500 hover:bg-red-50",
     };
 
-    const typeClass = outline ? outlineStyles[buttonType] : baseStyles[buttonType];
-    const roundedClass = rounded ? "rounded-lg" : "rounded";
-
     return (
         <div className="flex flex-col gap-2 w-34">
-            <button className={`px-4 py-2 font-medium transition-colors ${typeClass} ${roundedClass}`}>
+            <button
+                className={clsx(
+                    "px-4 py-2 font-medium transition-colors",
+                    outline ? outlineStyles[buttonType] : baseStyles[buttonType],
+                    rounded ? "rounded-lg" : "rounded"
+                )}>
                 {children}
             </button>
         </div>
