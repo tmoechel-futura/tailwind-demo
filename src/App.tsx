@@ -3,10 +3,10 @@ import IconButton from "./components/IconButton";
 
 export default function App() {
   return (
-    <main className="grid grid-cols-10 gap-2 m-4">
+    <main className="grid grid-cols-6 gap-2 m-4">
       <div className="flex flex-col gap-2">
-        <IconButton buttonType={"primary"} rounded buttonIcon="save">Download</IconButton>
-        <Button buttonType={"primary"} outline>Pri Outline</Button>
+        <IconButton buttonType={"primary"} rounded buttonIcon="save">Save</IconButton>
+        <IconButton buttonType={"primary"} outline buttonIcon="download">Pri Outline</IconButton>
         <Button buttonType={"primary"}>Primary Basic</Button>
       </div>
       <div className="flex flex-col gap-2">

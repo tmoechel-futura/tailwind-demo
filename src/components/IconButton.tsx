@@ -1,13 +1,16 @@
 
 import React from "react";
 import clsx from "clsx";
+
 import {
+    BookmarkSquareIcon as BookmarkSquareSolid,
     PencilSquareIcon as PencilSquareSolid,
     TrashIcon as TrashSolid,
-    ArrowDownTrayIcon as ArrowDownTraySolid,  // ← good “save” stand-in
+    ArrowDownTrayIcon as ArrowDownTraySolid,
 } from "@heroicons/react/24/solid";
 
 import {
+    BookmarkSquareIcon as BookmarkSquareOutline,
     PencilSquareIcon as PencilSquareOutline,
     TrashIcon as TrashOutline,
     ArrowDownTrayIcon as ArrowDownTrayOutline, // outline variant
@@ -15,7 +18,7 @@ import {
 
 // do not use propTypes in TSX use interfaces instead!
 type ButtonType = "primary" | "secondary" | "success" | "warning" | "danger";
-type ButtonIcon = "save" | "delete" | "edit";
+type ButtonIcon = "save" | "delete" | "edit" | "download";
 
 interface IButtonProps {
     children: React.ReactNode,
@@ -26,15 +29,17 @@ interface IButtonProps {
 }
 
 const iconMapSolid: Record<ButtonIcon, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
-    save: ArrowDownTraySolid,
+    save: BookmarkSquareSolid,
     delete: TrashSolid,
     edit: PencilSquareSolid,
+    download: ArrowDownTraySolid,
 };
 
 const iconMapOutline: Record<ButtonIcon, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
-    save: ArrowDownTrayOutline,
+    save: BookmarkSquareOutline,
     delete: TrashOutline,
     edit: PencilSquareOutline,
+    download: ArrowDownTrayOutline,
 };
 
 export default function Button({
@@ -65,7 +70,7 @@ export default function Button({
     const Icon = buttonIcon ? (outline ? iconMapOutline[buttonIcon] : iconMapSolid[buttonIcon]) : null;
 
     return (
-        <div className="flex flex-col gap-2 w-34">
+        <div className="flex flex-col gap-2 w-40">
             <button
                 className={clsx(
                     "flex items-center justify-center",

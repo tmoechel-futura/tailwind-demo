@@ -38,7 +38,7 @@ export default function Button({
     const commonStyles = "px-4 py-2 font-medium transition-colors";
 
     return (
-        <div className="flex flex-col gap-2 w-34">
+        <div className="flex flex-col gap-2 w-36">
             <button
                 className={clsx(
                     commonStyles,
