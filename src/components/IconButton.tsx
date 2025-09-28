@@ -20,7 +20,7 @@ import {
 type ButtonType = "primary" | "secondary" | "success" | "warning" | "danger";
 type ButtonIcon = "save" | "delete" | "edit" | "download";
 
-interface IButtonProps {
+interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode,
     rounded?: boolean,
     outline?: boolean
@@ -42,12 +42,14 @@ const iconMapOutline: Record<ButtonIcon, React.ComponentType<React.SVGProps<SVGS
     download: ArrowDownTrayOutline,
 };
 
-export default function Button({
+export default function IconButton({
     children,
     buttonType = "primary",
     rounded,
     outline,
-    buttonIcon }: IButtonProps): React.ReactElement {
+    buttonIcon,
+    ...rest }: IButtonProps): React.ReactElement {
+
     const baseStyles: Record<ButtonType, string> = {
         primary: "bg-blue-500 text-white hover:bg-blue-600",
         secondary: "bg-gray-500 text-white hover:bg-gray-600",
@@ -72,6 +74,7 @@ export default function Button({
     return (
         <div className="flex flex-col gap-2 w-40">
             <button
+                {...rest}
                 className={clsx(
                     "flex items-center justify-center",
                     commonStyles,

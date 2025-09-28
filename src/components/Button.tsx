@@ -3,21 +3,24 @@ import React from "react";
 import clsx from "clsx";
 
 
-// do not use propTypes in TSX use interfaces instead!
 type ButtonType = "primary" | "secondary" | "success" | "warning" | "danger";
 
-interface IButtonProps {
+interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode,
     rounded?: boolean,
     outline?: boolean
-    buttonType?: ButtonType
+    buttonType?: ButtonType,
+    buttonClick?: () => void,
 }
 
 export default function Button({
     children,
     buttonType = "primary",
     rounded,
-    outline }: IButtonProps): React.ReactElement {
+    outline,
+    ...rest
+}: IButtonProps): React.ReactElement {
+
     const baseStyles: Record<ButtonType, string> = {
         primary: "bg-blue-500 text-white hover:bg-blue-600",
         secondary: "bg-gray-500 text-white hover:bg-gray-600",
@@ -40,6 +43,7 @@ export default function Button({
     return (
         <div className="flex flex-col gap-2 w-36">
             <button
+                {...rest}
                 className={clsx(
                     commonStyles,
                     outline ? outlineStyles[buttonType] : baseStyles[buttonType],
