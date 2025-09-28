@@ -1,23 +1,48 @@
 
 import React from "react";
 import clsx from "clsx";
+import {
+    PencilSquareIcon as PencilSquareSolid,
+    TrashIcon as TrashSolid,
+    ArrowDownTrayIcon as ArrowDownTraySolid,  // ← good “save” stand-in
+} from "@heroicons/react/24/solid";
 
+import {
+    PencilSquareIcon as PencilSquareOutline,
+    TrashIcon as TrashOutline,
+    ArrowDownTrayIcon as ArrowDownTrayOutline, // outline variant
+} from "@heroicons/react/24/outline";
 
 // do not use propTypes in TSX use interfaces instead!
 type ButtonType = "primary" | "secondary" | "success" | "warning" | "danger";
+type ButtonIcon = "save" | "delete" | "edit";
 
 interface IButtonProps {
     children: React.ReactNode,
     rounded?: boolean,
     outline?: boolean
-    buttonType?: ButtonType
+    buttonType?: ButtonType,
+    buttonIcon?: ButtonIcon
 }
+
+const iconMapSolid: Record<ButtonIcon, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
+    save: ArrowDownTraySolid,
+    delete: TrashSolid,
+    edit: PencilSquareSolid,
+};
+
+const iconMapOutline: Record<ButtonIcon, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
+    save: ArrowDownTrayOutline,
+    delete: TrashOutline,
+    edit: PencilSquareOutline,
+};
 
 export default function Button({
     children,
     buttonType = "primary",
     rounded,
-    outline }: IButtonProps): React.ReactElement {
+    outline,
+    buttonIcon }: IButtonProps): React.ReactElement {
     const baseStyles: Record<ButtonType, string> = {
         primary: "bg-blue-500 text-white hover:bg-blue-600",
         secondary: "bg-gray-500 text-white hover:bg-gray-600",
@@ -37,14 +62,18 @@ export default function Button({
 
     const commonStyles = "px-4 py-2 font-medium transition-colors";
 
+    const Icon = buttonIcon ? (outline ? iconMapOutline[buttonIcon] : iconMapSolid[buttonIcon]) : null;
+
     return (
         <div className="flex flex-col gap-2 w-34">
             <button
                 className={clsx(
+                    "flex items-center justify-center",
                     commonStyles,
                     outline ? outlineStyles[buttonType] : baseStyles[buttonType],
                     rounded ? "rounded-lg" : ""
                 )}>
+                {Icon && <Icon className="h-5 w-5 mr-2" aria-hidden="true" />}
                 {children}
             </button>
         </div>
