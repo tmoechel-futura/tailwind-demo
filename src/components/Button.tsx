@@ -5,6 +5,7 @@ import clsx from "clsx";
 
 type ButtonType = "primary" | "secondary" | "success" | "warning" | "danger";
 
+// extend from ButtonHTMLAttributes to get all native button props (like onClick, onMouseMove, etc)
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode,
     rounded?: boolean,
@@ -18,7 +19,7 @@ export default function Button({
     buttonType = "primary",
     rounded,
     outline,
-    ...rest
+    ...rest // rest operator to capture all other props
 }: IButtonProps): React.ReactElement {
 
     const baseStyles: Record<ButtonType, string> = {
