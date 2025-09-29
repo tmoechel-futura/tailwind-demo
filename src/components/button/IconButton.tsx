@@ -16,15 +16,11 @@ import {
     ArrowDownTrayIcon as ArrowDownTrayOutline, // outline variant
 } from "@heroicons/react/24/outline";
 
-// do not use propTypes in TSX use interfaces instead!
-type ButtonType = "primary" | "secondary" | "success" | "warning" | "danger";
-type ButtonIcon = "save" | "delete" | "edit" | "download";
+import type { BaseButtonProps, ButtonIcon } from "./buttonTypes";
+import { baseStyles, outlineStyles, roundedStyles } from "./buttonStyles";
 
-interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    children: React.ReactNode,
-    rounded?: boolean,
-    outline?: boolean
-    buttonType?: ButtonType,
+
+interface IIconButtonProps extends BaseButtonProps {
     buttonIcon?: ButtonIcon
 }
 
@@ -48,26 +44,9 @@ export default function IconButton({
     rounded,
     outline,
     buttonIcon,
-    ...rest }: IButtonProps): React.ReactElement {
+    ...rest }: IIconButtonProps): React.ReactElement {
 
-    const baseStyles: Record<ButtonType, string> = {
-        primary: "bg-blue-500 text-white hover:bg-blue-600",
-        secondary: "bg-gray-500 text-white hover:bg-gray-600",
-        success: "bg-green-500 text-white hover:bg-green-600",
-        warning: "bg-yellow-500 text-black hover:bg-yellow-600",
-        danger: "bg-red-500 text-white hover:bg-red-600",
-    };
-
-    // outline variants (inherit color)
-    const outlineStyles: Record<ButtonType, string> = {
-        primary: "border border-blue-500 text-blue-500 hover:bg-blue-50",
-        secondary: "border border-gray-500 text-gray-500 hover:bg-gray-50",
-        success: "border border-green-500 text-green-500 hover:bg-green-50",
-        warning: "border border-yellow-500 text-yellow-600 hover:bg-yellow-50",
-        danger: "border border-red-500 text-red-500 hover:bg-red-50",
-    };
-
-    const commonStyles = "px-4 py-2 font-medium transition-colors";
+    const commonStyles = "px-4 py-2 font-medium transition-colors flex items-center justify-center";
 
     const Icon = buttonIcon ? (outline ? iconMapOutline[buttonIcon] : iconMapSolid[buttonIcon]) : null;
 
@@ -76,10 +55,10 @@ export default function IconButton({
             <button
                 {...rest}
                 className={clsx(
-                    "flex items-center justify-center",
                     commonStyles,
                     outline ? outlineStyles[buttonType] : baseStyles[buttonType],
-                    rounded ? "rounded-lg" : ""
+                    rounded && roundedStyles[rounded],
+                    rest.className, // include any className passed via props
                 )}>
                 {Icon && <Icon className="h-5 w-5 mr-2" aria-hidden="true" />}
                 {children}
