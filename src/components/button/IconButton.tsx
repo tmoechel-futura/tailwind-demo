@@ -17,7 +17,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 import type { BaseButtonProps, ButtonIcon } from "./buttonTypes";
-import { baseStyles, outlineStyles, roundedStyles } from "./buttonStyles";
+import { baseStyles, iconButtonCommonStyles, outlineStyles, roundedStyles } from "./buttonStyles";
 
 
 interface IIconButtonProps extends BaseButtonProps {
@@ -46,8 +46,6 @@ export default function IconButton({
     buttonIcon,
     ...rest }: IIconButtonProps): React.ReactElement {
 
-    const commonStyles = "px-4 py-2 font-medium transition-colors flex items-center justify-center";
-
     const Icon = buttonIcon ? (outline ? iconMapOutline[buttonIcon] : iconMapSolid[buttonIcon]) : null;
 
     return (
@@ -55,7 +53,7 @@ export default function IconButton({
             <button
                 {...rest}
                 className={clsx(
-                    commonStyles,
+                    iconButtonCommonStyles,
                     outline ? outlineStyles[buttonType] : baseStyles[buttonType],
                     rounded && roundedStyles[rounded],
                     rest.className, // include any className passed via props

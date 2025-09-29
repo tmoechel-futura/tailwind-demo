@@ -24,3 +24,5 @@ export const roundedStyles: Record<RoundedSize, string> = {
     lg: "rounded-lg",
     full: "rounded-full",
 };
+
+export const iconButtonCommonStyles = "px-4 py-2 font-medium transition-colors flex items-center justify-center";

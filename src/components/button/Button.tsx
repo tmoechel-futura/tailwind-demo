@@ -4,8 +4,6 @@ import clsx from "clsx";
 import type { BaseButtonProps } from "./buttonTypes";
 import { baseStyles, outlineStyles, roundedStyles } from "./buttonStyles";
 
-
-
 // extend from ButtonHTMLAttributes to get all native button props (like onClick, onMouseMove, etc)
 interface IButtonProps extends BaseButtonProps { }
 
