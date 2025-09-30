@@ -1,5 +1,6 @@
-import Button from "./components/button/Button";
-import IconButton from "./components/button/IconButton";
+
+import Button from "../../components/button/Button"
+import IconButton from "../../components/button/IconButton"
 
 export default function App() {
   function handleClick() {
